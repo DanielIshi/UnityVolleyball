@@ -1,7 +1,7 @@
 #pragma strict
 
 //Dies ist ein test.
-//haha //hihi
+//haha //hihi //hoho
 
 function Start () {
 
