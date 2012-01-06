@@ -1,4 +1,5 @@
 function Angriff(){
+	//blabla
   
 	if (G.AngriffErfolgreich==true) {
           G.naechstePhase="Zuspiel";  
