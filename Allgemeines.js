@@ -1,14 +1,9 @@
-#pragma strict
 
-//Dies ist ein test.
-
-
-function Start () {
-
-}
-
-function Update () {
+function Farbe (R, G, B) {
+  this.R = R;
+  this.G = G;
+  this.B = B;
+  this.hex = "#";
+  function gibFarbe(){ alert  ('hallo'); }
 
 }
-
-
