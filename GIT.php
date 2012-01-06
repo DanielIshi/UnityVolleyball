@@ -16,7 +16,7 @@ if( !isset($_POST['upload']) OR empty($_POST['upload']) ) {
     </p>
     </fieldset>
      <fieldset>
-        <legend>Datei löschen</legend>
+        <legend>Datei loeschen</legend>
     <p>
         <label for="verz_idL">Verzeichnis:</label>
         <input name="verzL" id="verz_idL" />  
@@ -27,7 +27,7 @@ if( !isset($_POST['upload']) OR empty($_POST['upload']) ) {
     </p>
     </fieldset>
     <input type="checkbox" name="ziehen" value="ziehen"> Alles vom Server ziehen<br>
-     <input type="submit" name="upload" value="ausführen" />
+     <input type="submit" name="upload" value="ausfuehren" />
 HTML;
 }
 else {
