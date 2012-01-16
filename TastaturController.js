@@ -35,6 +35,33 @@ function Update () {
   if(Input.GetKeyDown("2")){ 	camera1.enabled = false; 	camera2.enabled = true;  }
   if(Input.GetKeyDown("return")){ 	WechsleSpieler ();  }
   if(Input.GetKeyDown("space")){ 	Spieler[aktSpieler-1].animation.Play("Stemmschritt");  }
+  
+  if (G.SpielLaueft==true) {
+	if (G.letztePhaseAbgeschlossen==true) {
+
+		if (G.Phase=="AnnahmeWartend") {}
+		if (G.Phase=="Annahme") {}
+		if (G.Phase=="Zuspiel") {}
+		if (G.Phase=="Angriff") {}
+		if (G.Phase=="Angriffssicherung") {}
+		if (G.Phase=="UebergangZumK2"){}
+		if (G.Phase=="Blockvorbereitung") {}
+		if (G.Phase=="Blockhandlung") {}
+		if (G.Phase=="Feldabwehr") {}
+
+		G.letztePhaseAbgeschlossen=false;
+	}
+        
+    }
+else {
+if (
+	G.letztenSpielzugGewonnen==true){G.aktSpielphase="K2";}else {G.aktSpielphase="K1";}
+
+        }
+  
+  
+  
+  
 }
 
 
