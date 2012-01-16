@@ -1,4 +1,3 @@
-
 var camera1 : Camera;
 var camera2 : Camera;
 
@@ -41,7 +40,10 @@ function Update () {
 
 
 function AngriffTasten(){
-	if(Input.GetKeyDown("return")){ 	WechsleSpieler ();  }
+	if(Input.GetKeyDown("space"))  		{ 	StemmschrittBeginnen ();  }
+	if(Input.GetKeyDown("return")) 		{ 	Schlag ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	Finte ();  }
+	if(Input.GetKeyDown("backspace")) 	{ 	Lobschlag ();  }
 }
 function AnnahmeTasten(){}
 function BlockTasten(){}
