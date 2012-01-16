@@ -45,7 +45,26 @@ function AngriffTasten(){
 	if(Input.GetKeyDown("right alt")) 	{ 	Finte ();  }
 	if(Input.GetKeyDown("backspace")) 	{ 	Lobschlag ();  }
 }
-function AnnahmeTasten(){}
-function BlockTasten(){}
-function AufschlagTasten() {}
-function ZuspielTasten(){}
+function AnnahmeTasten(){
+	if(Input.GetKeyDown("space"))  		{ 	AnnahmeImOberenZuspiel ();  }
+	if(Input.GetKeyDown("return")) 		{ 	Baggern ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	Rutschbagger ();  }	
+	
+}
+function BlockTasten(){
+	if(Input.GetKeyDown("space"))  		{ 	Blockabsprung ();  }
+	if(Input.GetKeyDown("return")) 		{ 	AktivBlocken ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	PassivBlocken ();  }
+}
+function AufschlagTasten() {
+	if(Input.GetKeyDown("left alt")) 	{ 	AufschlagArtUmschalten ();  }
+	if(Input.GetKeyDown("space"))  		{ 	Anwurf ();  }
+	if(Input.GetKeyDown("return")) 		{ 	HarterAufSchlag ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	DriveAufschlag ();  }
+}
+function ZuspielTasten(){
+	if(Input.GetKeyDown("left alt")) 	{ 	ErstesTempoZuspiel ();  }
+	if(Input.GetKeyDown("space"))  		{ 	ZweitesTempoZuspiel ();  }
+	if(Input.GetKeyDown("return")) 		{ 	DrittesTempoZuspiel  ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	Hinterfeldpass ();  }
+}
