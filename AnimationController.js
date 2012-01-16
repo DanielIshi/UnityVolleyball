@@ -4,7 +4,17 @@ function Finte () {}
 function Lobschlag () {}
 function RichtungFeststellen() {}
 function AnnahmeImOberenZuspiel () {}
-function Baggern () {} 
+
+function Baggern () {
+      
+      if (G.kurz_nach_vorn)    {  Kniestand(); }
+      if (G.kurz_nach_links)   {  seitlicherBaggerLinks();  }
+      if (G.kurz_nach_rechts)  {  seitlicherBaggerRechts(); }
+      if (G.kurz_nach_hinten && !G.kurz_nach_links && !G.kurz_nach_rechts)  {  BaggerMitHopRw(); }
+      if (G.kurz_nach_hinten && G.kurz_nach_links )  {  BaggerAufgedrehtL();  }
+      if (G.kurz_nach_hinten && G.kurz_nach_rechts )  {   BaggerAufgedrehtR(); }
+
+} 
 function Rutschbagger () {}
 function Blockabsprung () {}
 function AktivBlocken ()  {}
