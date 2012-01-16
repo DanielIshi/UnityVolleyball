@@ -1,5 +1,4 @@
 
-
 var camera1 : Camera;
 var camera2 : Camera;
 
@@ -33,9 +32,18 @@ function WechsleSpieler (){
 
 
 function Update () {   
-
-	if(Input.GetKeyDown("1")){  camera1.enabled = true; 	camera2.enabled = false; }
+  if(Input.GetKeyDown("1")){  camera1.enabled = true; 	camera2.enabled = false; }
   if(Input.GetKeyDown("2")){ 	camera1.enabled = false; 	camera2.enabled = true;  }
   if(Input.GetKeyDown("return")){ 	WechsleSpieler ();  }
   if(Input.GetKeyDown("space")){ 	Spieler[aktSpieler-1].animation.Play("Stemmschritt");  }
 }
+
+
+
+function AngriffTasten(){
+	if(Input.GetKeyDown("return")){ 	WechsleSpieler ();  }
+}
+function AnnahmeTasten(){}
+function BlockTasten(){}
+function AufschlagTasten() {}
+function ZuspielTasten(){}
