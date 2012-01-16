@@ -1,32 +1,16 @@
-var camera1 : Camera;
-var camera2 : Camera;
-
+var camera1 : Camera; var camera2 : Camera;
 var GesteuerterSpieler : GameObject;
-
-
-var Spieler = new Array ();
-var aktSpieler=1;  
+var Spieler = new Array (); var aktSpieler=1;  
 
 
 function Start () {
-  camera1.enabled = true;
-	camera2.enabled = false;
-  
-  Spieler.push(GameObject.Find("Spieler1"));
-  Spieler.push(GameObject.Find("Spieler2"));
-  Spieler.push(GameObject.Find("Spieler3"));
-  Spieler.push(GameObject.Find("Spieler4"));
-  Spieler.push(GameObject.Find("Spieler5"));
-  Spieler.push(GameObject.Find("Spieler6"));
+  camera1.enabled = true;	camera2.enabled = false;  
+  Spieler.push(GameObject.Find("Spieler1")); Spieler.push(GameObject.Find("Spieler2"));  Spieler.push(GameObject.Find("Spieler3"));
+  Spieler.push(GameObject.Find("Spieler4"));  Spieler.push(GameObject.Find("Spieler5"));  Spieler.push(GameObject.Find("Spieler6"));
 
 }
 
-   
-
-
-function WechsleSpieler (){      
-      aktSpieler+=1;
-}
+function WechsleSpieler () { aktSpieler+=1; }
 
 
 
@@ -87,7 +71,7 @@ function AnnahmeTasten(){
 }
 function BlockTasten(){
 	if(Input.GetKeyDown("space"))  		{ 	Blockabsprung ();  }  
-	// if (Input.GetButton ("Jump")) { moveDirection.y = jumpSpeed;}
+	// if (Input.GetButton ("Jump")) { }
  	//moveDirection.y -= gravity * Time.deltaTime;   	// Apply gravity
 	if(Input.GetKeyDown("return")) 		{ 	AktivBlocken ();  }
 	if(Input.GetKeyDown("right alt")) 	{ 	PassivBlocken ();  }
@@ -127,12 +111,11 @@ private var moveDirection : Vector3 = Vector3.zero;
 
 function NormalLinksRechts(){
 	var controller : CharacterController = GetComponent(CharacterController);
-	if (controller.isGrounded) {		
-		moveDirection = Vector3(Input.GetAxis("Horizontal"), 0,	0);  // We are grounded, so recalculate // move direction directly from axes
-		moveDirection = transform.TransformDirection(moveDirection);
-		moveDirection *= speed;
-	}		
-	controller.Move(moveDirection * Time.deltaTime);  	// Move the controller	
+	
+	var sideward : Vector3 = transform.TransformDirection(Vector3.right);
+	var sideSpeed : float = speed * Input.GetAxis ("Horizontal");
+	controller.SimpleMove(sideward * sideSpeed);
+	
 }
 
 function NormalLinksRechtsObenUnten(){
