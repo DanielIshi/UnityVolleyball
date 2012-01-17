@@ -1,27 +1,42 @@
 var camera1 : Camera; var camera2 : Camera;
 var GesteuerterSpieler : GameObject;
-var Spieler = new Array (); var aktSpieler=1;  
+ 
 
 
 function Start () {
   camera1.enabled = true;	camera2.enabled = false;  
-  Spieler.push(GameObject.Find("Spieler1")); Spieler.push(GameObject.Find("Spieler2"));  Spieler.push(GameObject.Find("Spieler3"));
-  Spieler.push(GameObject.Find("Spieler4"));  Spieler.push(GameObject.Find("Spieler5"));  Spieler.push(GameObject.Find("Spieler6"));
+  G.Spieler.push(GameObject.Find("Spieler1")); G.Spieler.push(GameObject.Find("Spieler2"));  G.Spieler.push(GameObject.Find("Spieler3"));
+  G.Spieler.push(GameObject.Find("Spieler4"));  G.Spieler.push(GameObject.Find("Spieler5"));  G.Spieler.push(GameObject.Find("Spieler6"));
+  
+  G.Gegner.push(GameObject.Find("Gegner1")); G.Gegner.push(GameObject.Find("Gegner2"));  G.Gegner.push(GameObject.Find("Gegner3"));
+  G.Gegner.push(GameObject.Find("Gegner4"));  G.Gegner.push(GameObject.Find("Gegner5"));  G.Gegner.push(GameObject.Find("Gegner6"));
+  
+  Aufschlag();
 
 }
 
-function WechsleSpieler () { aktSpieler+=1; }
+function Aufschlag(){
+      G.aktSpieler=1;
+      G.SpielLaueft=true;
+      G.letztePhaseAbgeschlossen=true;
+      G.Phase = "Aufschlag";
+}
+
+
+function WechsleSpieler () { G.aktSpieler+=1; }
 
 
 
 function Update () {   
-  if(Input.GetKeyDown("1")){  camera1.enabled = true; 	camera2.enabled = false; }
-  if(Input.GetKeyDown("2")){ 	camera1.enabled = false; 	camera2.enabled = true;  }
-  if(Input.GetKeyDown("return")){ 	WechsleSpieler ();  }
-  if(Input.GetKeyDown("space")){ 	Spieler[aktSpieler-1].animation.Play("Stemmschritt");  }
+ 
+  if(Input.GetKeyDown("backspace")){ 	WechsleSpieler ();  }
+  //if(Input.GetKeyDown("space")){ 	G.Spieler[G.aktSpieler-1].animation.Play("Stemmschritt und Schlag");  }
   
   if (G.SpielLaueft==true) {
 	if (G.letztePhaseAbgeschlossen==true) {
+
+    if (G.Phase=="Aufschlag") {AufschlagVorbereitung();AufschlagTasten();}
+
 
 		if (G.Phase=="AnnahmeWartend") {AnnahmeVorbereitungTasten();}
 		if (G.Phase=="Annahme") {AnnahmeTasten();}
@@ -57,41 +72,41 @@ function BlockVorbereitungTasten()	{  	NormalLinksRechts(); }
 function AufschlagVorbereitung() 	{	NormalLinksRechtsObenUnten();}
 
 function AngriffTasten(){
-	if(Input.GetKeyDown("space"))  		{ 	StemmschrittBeginnen ();  }
-	if(Input.GetKeyDown("return")) 		{ 	Schlag ();  }
-	if(Input.GetKeyDown("right alt")) 	{ 	Finte ();  }
-	if(Input.GetKeyDown("backspace")) 	{ 	Lobschlag ();  }
+	if(Input.GetKeyDown("space"))  		{ 	AnimationController.StemmschrittBeginnen ();  }
+	if(Input.GetKeyDown("return")) 		{ 	AnimationController.Schlag ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	AnimationController.Finte ();  }
+	if(Input.GetKeyDown("backspace")) 	{ 	AnimationController.Lobschlag ();  }
 }
 function AnnahmeTasten(){
 	RichtungFeststellen();
-	if(Input.GetKeyDown("space"))  		{ 	AnnahmeImOberenZuspiel ();  }
-	if(Input.GetKeyDown("return")) 		{ 	Baggern ();  }
-	if(Input.GetKeyDown("right alt")) 	{ 	Rutschbagger ();  }	
+	if(Input.GetKeyDown("space"))  		{ 	AnimationController.AnnahmeImOberenZuspiel ();  }
+	if(Input.GetKeyDown("return")) 		{ 	AnimationController.Baggern ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	AnimationController.Rutschbagger ();  }	
 	
 }
 function BlockTasten(){
-	if(Input.GetKeyDown("space"))  		{ 	Blockabsprung ();  }  
+	if(Input.GetKeyDown("space"))  		{ 	AnimationController.Blockabsprung ();  }  
 	// if (Input.GetButton ("Jump")) { }
  	//moveDirection.y -= gravity * Time.deltaTime;   	// Apply gravity
-	if(Input.GetKeyDown("return")) 		{ 	AktivBlocken ();  }
-	if(Input.GetKeyDown("right alt")) 	{ 	PassivBlocken ();  }
+	if(Input.GetKeyDown("return")) 		{ 	AnimationController.AktivBlocken ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	AnimationController.PassivBlocken ();  }
 }
 function AufschlagTasten() {
-	if(Input.GetKeyDown("left alt")) 	{ 	AufschlagArtUmschalten ();  }
-	if(Input.GetKeyDown("space"))  		{ 	Anwurf ();  }
-	if(Input.GetKeyDown("return")) 		{ 	HarterAufSchlag ();  }
-	if(Input.GetKeyDown("right alt")) 	{ 	DriveAufschlag ();  }
+	if(Input.GetKeyDown("left alt")) 	{ 	AnimationController.AufschlagArtUmschalten ();  }
+	if(Input.GetKeyDown("space"))  		{ 	AnimationController.Anwurf ();  }
+	if(Input.GetKeyDown("return")) 		{ 	AnimationController.HarterAufSchlag ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	AnimationController.DriveAufschlag ();  }
 }
 function ZuspielTasten(){
-	if(Input.GetKeyDown("left alt")) 	{ 	ErstesTempoZuspiel ();  }
-	if(Input.GetKeyDown("space"))  		{ 	ZweitesTempoZuspiel ();  }
-	if(Input.GetKeyDown("return")) 		{ 	DrittesTempoZuspiel  ();  }
-	if(Input.GetKeyDown("right alt")) 	{ 	Hinterfeldpass ();  }
+	if(Input.GetKeyDown("left alt")) 	{ 	AnimationController.ErstesTempoZuspiel ();  }
+	if(Input.GetKeyDown("space"))  		{ 	AnimationController.ZweitesTempoZuspiel ();  }
+	if(Input.GetKeyDown("return")) 		{ 	AnimationController.DrittesTempoZuspiel  ();  }
+	if(Input.GetKeyDown("right alt")) 	{ 	AnimationController.Hinterfeldpass ();  }
 }
 function AbwehrTasten(){
-	if(Input.GetKeyDown("left alt")) 	{ 	Fallen ();  }
-	if(Input.GetKeyDown("space"))  		{ 	Handabwehr ();  }
-	if(Input.GetKeyDown("return")) 		{ 	Abstuetzen  ();  }
+	if(Input.GetKeyDown("left alt")) 	{ 	AnimationController.Fallen ();  }
+	if(Input.GetKeyDown("space"))  		{ 	AnimationController.Handabwehr ();  }
+	if(Input.GetKeyDown("return")) 		{ 	AnimationController.Abstuetzen  ();  }
 }
 
 
@@ -103,27 +118,61 @@ function AbwehrTasten(){
 
 ////______________________________________/////
 
-var speed : float = 6.0;
+
 var jumpSpeed : float = 8.0;
 var gravity : float = 20.0;
-private var moveDirection : Vector3 = Vector3.zero;
+var speed : float = 6.0;
+
+//private var moveDirection : Vector3 = Vector3.zero;
 
 
-function NormalLinksRechts(){
-	var controller : CharacterController = GetComponent(CharacterController);
-	
+function NormalLinksRechts(){  
 	var sideward : Vector3 = transform.TransformDirection(Vector3.right);
 	var sideSpeed : float = speed * Input.GetAxis ("Horizontal");
-	controller.SimpleMove(sideward * sideSpeed);
-	
+	G.Spieler[G.aktSpieler-1].GetComponent(Move).bewege (sideward , sideSpeed);	
 }
 
 function NormalLinksRechtsObenUnten(){
-	var controller : CharacterController = GetComponent(CharacterController);
-	if (controller.isGrounded) {		
-		moveDirection = Vector3(Input.GetAxis("Horizontal"), 0,	Input.GetAxis("Vertical")); // We are grounded, so recalculate // move direction directly from axes
-		moveDirection = transform.TransformDirection(moveDirection);
+    
+		var moveDirection = Vector3(Input.GetAxis("Horizontal"), 0,	Input.GetAxis("Vertical")); // We are grounded, so recalculate // move direction directly from axes
+		//moveDirection = transform.TransformDirection(moveDirection);
 		moveDirection *= speed;
-	}	
-	controller.Move(moveDirection * Time.deltaTime);  	// Move the controller	
+
+  G.Spieler[G.aktSpieler-1].GetComponent(Move).bewege (moveDirection , speed);		
+}
+
+
+
+
+function RichtungFeststellen(){
+   var LRvalue = Input.GetAxis ("Horizontal");
+   var OUvalue = Input.GetAxis ("Vertical");
+                                                                                                                       
+   G.kurz_nach_links  = false; G.mittel_nach_links = false;  G.lange_nach_links = false;  G.kurz_nach_rechts = false;  G.lange_nach_rechts = false;
+   G.kurz_nach_unten = false; G.mittel_nach_unten = false;  G.lange_nach_unten = false;  G.kurz_nach_oben = false;  G.mittel_nach_oben = false;  G.lange_nach_oben = false;
+
+   if (LRvalue!=0) {
+        if ( (LRvalue < 0.01) && (LRvalue > -0.33) )   {G.kurz_nach_links = true; }
+        if ( (LRvalue<= -0.33) && (LRvalue > -0.66) ) {G.mittel_nach_links = true; }
+        if ( (LRvalue<= -0.66) && (LRvalue >= -1) )  {G.lange_nach_links = true; }
+        
+         if ( (LRvalue > 0.01) && (LRvalue < 0.33) )   {G.kurz_nach_rechts = true;}
+        if ( (LRvalue >= 0.33) && (LRvalue < 0.66) ) {G.mittel_nach_rechts = true;}
+        if ( (LRvalue >= 0.66) && (LRvalue <= 1) )  {G.lange_nach_rechts = true;}
+        
+   } 
+ 
+   if (OUvalue!=0) {
+        if ( (OUvalue < 0.01) && (OUvalue > -0.33) )   {G.kurz_nach_unten = true;}
+        if ( (OUvalue<= -0.33) && (OUvalue > -0.66) ) {G.mittel_nach_unten = true;}
+        if ( (OUvalue<= -0.66) && (OUvalue >= -1) )  {G.lange_nach_unten = true;}
+        
+         if ( (OUvalue > 0.01) && (OUvalue < 0.33) )   {G.kurz_nach_oben = true; ;}
+        if ( (OUvalue >= 0.33) && (OUvalue < 0.66) ) {G.mittel_nach_oben = true;}
+        if ( (OUvalue >= 0.66) && (OUvalue <= 1) )  {G.lange_nach_oben = true;}
+        
+   }
+   
+    if (LRvalue==0 && OUvalue==0) {Debug.Log ("");}
+
 }
